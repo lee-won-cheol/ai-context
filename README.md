@@ -29,7 +29,7 @@ ai-context/
 ### 1. 중앙 저장소 설정
 
 ```bash
-git clone <repository-url> ~/ai-context
+git clone https://github.com/lee-won-cheol/ai-context.git ~/ai-context
 ```
 
 ### 2. 프로젝트에 연결
