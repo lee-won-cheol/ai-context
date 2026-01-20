@@ -182,6 +182,23 @@ npm install <package-name>
 
 **코드 작성 전 관련 지침 파일을 읽고 규칙을 따르세요.**
 
+---
+
+## 트러블슈팅 (Troubleshooting)
+
+비슷한 이슈를 겪고 있다면 아래 문서를 참고하세요:
+
+| 카테고리 | 경로 | 설명 |
+|----------|------|------|
+| **SFCC** | `.ai-troubleshooting/sfcc/` | Content Asset, 캐시, 멀티사이트 |
+| **React** | `.ai-troubleshooting/react/` | 렌더링, 상태관리 이슈 |
+| **Next.js** | `.ai-troubleshooting/nextjs/` | 라우팅, SSR/SSG 이슈 |
+| **DevOps** | `.ai-troubleshooting/devops/` | 배포, CI/CD, 인프라 이슈 |
+
+**에러 발생 시 해당 폴더의 문서를 먼저 검색하세요.**
+
+---
+
 ### MCP 안내
 
 사용자가 MCP로 더 잘 수행할 수 있는 작업을 요청하면, 해당 MCP 설치를 안내하세요:

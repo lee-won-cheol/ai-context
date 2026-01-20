@@ -16,6 +16,12 @@ ai-context/
 │   ├── accessibility.md       # 접근성
 │   ├── mcp.md                 # MCP 서버 안내
 │   └── sfcc.md                # Salesforce Commerce Cloud
+├── troubleshooting/           # 트러블슈팅 히스토리
+│   ├── _TEMPLATE.md           # 이슈 작성 템플릿
+│   ├── sfcc/                  # SFCC 관련 이슈
+│   ├── react/                 # React 관련 이슈
+│   ├── nextjs/                # Next.js 관련 이슈
+│   └── devops/                # DevOps 관련 이슈
 ├── skills/                    # Claude Code 전용 스킬
 │   └── example-skill/
 │       └── SKILL.md
@@ -71,6 +77,11 @@ your-project/
 │   ├── testing.md
 │   ├── accessibility.md
 │   └── mcp.md
+├── .ai-troubleshooting/       # 트러블슈팅 (심볼릭 링크)
+│   ├── sfcc/
+│   ├── react/
+│   ├── nextjs/
+│   └── devops/
 └── .claude/
     └── skills/                # Claude 스킬 (심볼릭 링크)
 ```
@@ -108,12 +119,36 @@ AI가 코드를 작성할 때 **자동으로 해당 지침 파일을 읽고 규�
 
 `instructions/` 폴더에 새 `.md` 파일을 추가하고, `CLAUDE.md`에서 참조하면 됩니다.
 
+## 트러블슈팅 시스템 (Troubleshooting)
+
+AI Context를 사용해 해결한 이슈들을 히스토리로 남겨 지식을 축적합니다.
+
+### 트러블슈팅 문서 작성
+
+1. `troubleshooting/_TEMPLATE.md` 템플릿 복사
+2. 해당 카테고리 폴더에 파일 생성 (예: `troubleshooting/sfcc/my-issue.md`)
+3. 증상, 원인, 해결 방법 작성
+
+### 제공되는 카테고리
+
+| 카테고리 | 폴더 | 내용 |
+|----------|------|------|
+| SFCC | `sfcc/` | Content Asset, 캐시, 멀티사이트 |
+| React | `react/` | 렌더링, 상태관리, 훅 이슈 |
+| Next.js | `nextjs/` | 라우팅, SSR/SSG, 배포 이슈 |
+| DevOps | `devops/` | CI/CD, Docker, 인프라 이슈 |
+
+### 새 카테고리 추가
+
+`troubleshooting/` 폴더에 새 폴더를 생성하고, `CLAUDE.md`의 트러블슈팅 테이블에 추가하면 됩니다.
+
 ## 적용 범위
 
 | 항목 | Cursor | Claude Code |
 |------|--------|-------------|
 | CLAUDE.md | ✅ | ✅ |
 | .ai-instructions/ | ✅ (참조 시) | ✅ (참조 시) |
+| .ai-troubleshooting/ | ✅ (참조 시) | ✅ (참조 시) |
 | .claude/skills/ | ❌ | ✅ |
 
 ## 제거 방법

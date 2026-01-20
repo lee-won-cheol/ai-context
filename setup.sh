@@ -76,6 +76,28 @@ else
     echo "  ⚠️  Warning: $AI_CONTEXT_PATH/instructions directory not found"
 fi
 
+# 트러블슈팅 폴더 심볼릭 링크 생성
+echo ""
+echo "Creating symbolic links for troubleshooting..."
+TROUBLESHOOTING_DIR="$PROJECT_ROOT/.ai-troubleshooting"
+if [ -d "$AI_CONTEXT_PATH/troubleshooting" ]; then
+    for ts_dir in "$AI_CONTEXT_PATH/troubleshooting"/*; do
+        if [ -d "$ts_dir" ]; then
+            folder_name=$(basename "$ts_dir")
+            target="$TROUBLESHOOTING_DIR/$folder_name"
+            mkdir -p "$TROUBLESHOOTING_DIR"
+            if [ -e "$target" ]; then
+                echo "  ⚠️  $folder_name already exists, skipping..."
+            else
+                ln -sf "$ts_dir" "$target"
+                echo "  ✓ Linked troubleshooting: $folder_name"
+            fi
+        fi
+    done
+else
+    echo "  ⚠️  Warning: $AI_CONTEXT_PATH/troubleshooting directory not found"
+fi
+
 # Claude Skills 폴더 심볼릭 링크 생성
 echo ""
 echo "Creating symbolic links for Claude skills..."
@@ -106,6 +128,7 @@ echo ""
 echo "생성된 링크:"
 echo "  - CLAUDE.md: $PROJECT_ROOT/CLAUDE.md"
 echo "  - Instructions: $INSTRUCTIONS_DIR/"
+echo "  - Troubleshooting: $TROUBLESHOOTING_DIR/"
 echo "  - Claude Skills: $CLAUDE_SKILLS_DIR/"
 echo ""
 echo "Cursor 사용자: 설정에서 'Include CLAUDE.md in context'를 활성화하세요."
