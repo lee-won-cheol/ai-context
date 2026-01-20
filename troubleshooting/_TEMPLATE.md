@@ -1,5 +1,7 @@
 # [이슈 제목]
 
+> ⚠️ **작성 후 할 일**: `_INDEX.md`의 태그 테이블에 이 문서를 추가하세요!
+
 ## 환경
 - **플랫폼**: 
 - **버전**: 
@@ -23,3 +25,12 @@
 
 ## 태그
 `tag1` `tag2` `tag3`
+
+<!-- 
+태그 작성 가이드:
+- 기술: sfcc, react, nextjs, typescript
+- 기능: locale, cache, auth, api
+- 증상: not-updating, slow, error-500
+
+작성 완료 후 _INDEX.md에 태그 추가하는 것 잊지 마세요!
+-->

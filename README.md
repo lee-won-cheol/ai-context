@@ -17,11 +17,12 @@ ai-context/
 │   ├── mcp.md                 # MCP 서버 안내
 │   └── sfcc.md                # Salesforce Commerce Cloud
 ├── troubleshooting/           # 트러블슈팅 히스토리
+│   ├── _INDEX.md              # 태그 인덱스 (이슈 빠른 검색)
 │   ├── _TEMPLATE.md           # 이슈 작성 템플릿
-│   ├── sfcc/                  # SFCC 관련 이슈
-│   ├── react/                 # React 관련 이슈
-│   ├── nextjs/                # Next.js 관련 이슈
-│   └── devops/                # DevOps 관련 이슈
+│   └── sfcc/                  # SFCC 관련 이슈
+├── specs/                     # 기능 스펙 문서
+│   ├── _TEMPLATE.md           # 스펙 작성 템플릿
+│   └── example-login-feature.md  # 예시: 로그인 기능 스펙
 ├── skills/                    # Claude Code 전용 스킬
 │   └── example-skill/
 │       └── SKILL.md
@@ -78,10 +79,12 @@ your-project/
 │   ├── accessibility.md
 │   └── mcp.md
 ├── .ai-troubleshooting/       # 트러블슈팅 (심볼릭 링크)
-│   ├── sfcc/
-│   ├── react/
-│   ├── nextjs/
-│   └── devops/
+│   ├── _INDEX.md              # 태그 인덱스
+│   ├── _TEMPLATE.md
+│   └── sfcc/
+├── .ai-specs/                 # 스펙 문서 (심볼릭 링크)
+│   ├── _TEMPLATE.md
+│   └── example-login-feature.md
 └── .claude/
     └── skills/                # Claude 스킬 (심볼릭 링크)
 ```
@@ -138,9 +141,33 @@ AI Context를 사용해 해결한 이슈들을 히스토리로 남겨 지식을 
 | Next.js | `nextjs/` | 라우팅, SSR/SSG, 배포 이슈 |
 | DevOps | `devops/` | CI/CD, Docker, 인프라 이슈 |
 
+### 태그 인덱스
+
+`troubleshooting/_INDEX.md`에서 태그로 이슈를 빠르게 검색할 수 있습니다.
+새 이슈 문서 작성 후 `_INDEX.md`의 태그 테이블에 추가하세요.
+
 ### 새 카테고리 추가
 
 `troubleshooting/` 폴더에 새 폴더를 생성하고, `CLAUDE.md`의 트러블슈팅 테이블에 추가하면 됩니다.
+
+## 스펙 문서 시스템 (Specs)
+
+새 기능 개발 전 스펙 문서를 작성하면 AI가 더 정확하게 구현합니다.
+
+### 스펙 문서 작성
+
+1. `specs/_TEMPLATE.md` 템플릿 복사
+2. `specs/` 폴더에 스펙 파일 생성 (예: `specs/user-auth.md`)
+3. 요구사항, API 설계, 제약사항 등 작성
+
+### 사용 방법
+
+AI에게 스펙 기반 개발 요청:
+```
+".ai-specs/user-auth.md 보고 구현해줘"
+```
+
+AI가 스펙을 읽고 요구사항에 맞게 코드를 생성합니다.
 
 ## 적용 범위
 
@@ -149,6 +176,7 @@ AI Context를 사용해 해결한 이슈들을 히스토리로 남겨 지식을 
 | CLAUDE.md | ✅ | ✅ |
 | .ai-instructions/ | ✅ (참조 시) | ✅ (참조 시) |
 | .ai-troubleshooting/ | ✅ (참조 시) | ✅ (참조 시) |
+| .ai-specs/ | ✅ (참조 시) | ✅ (참조 시) |
 | .claude/skills/ | ❌ | ✅ |
 
 ## 제거 방법

@@ -80,15 +80,13 @@ if (Test-Path $INSTRUCTIONS_SOURCE) {
 Write-Host ""
 Write-Host "Creating symbolic links for troubleshooting..." -ForegroundColor Yellow
 $TROUBLESHOOTING_DIR = Join-Path $PROJECT_ROOT ".ai-troubleshooting"
+New-Item -ItemType Directory -Force -Path $TROUBLESHOOTING_DIR | Out-Null
 $TROUBLESHOOTING_SOURCE = Join-Path $AI_CONTEXT_PATH "troubleshooting"
 if (Test-Path $TROUBLESHOOTING_SOURCE) {
+    # 하위 폴더 링크
     Get-ChildItem -Path $TROUBLESHOOTING_SOURCE -Directory | ForEach-Object {
         $folder_name = $_.Name
         $target = Join-Path $TROUBLESHOOTING_DIR $folder_name
-        # 폴더가 없으면 생성
-        if (-not (Test-Path $TROUBLESHOOTING_DIR)) {
-            New-Item -ItemType Directory -Force -Path $TROUBLESHOOTING_DIR | Out-Null
-        }
         if (Test-Path $target) {
             Write-Host "  ⚠️  $folder_name already exists, skipping..." -ForegroundColor Yellow
         } else {
@@ -100,8 +98,48 @@ if (Test-Path $TROUBLESHOOTING_SOURCE) {
             }
         }
     }
+    # _INDEX.md, _TEMPLATE.md 등 루트 파일 링크
+    Get-ChildItem -Path $TROUBLESHOOTING_SOURCE -Filter "*.md" -File | ForEach-Object {
+        $filename = $_.Name
+        $target = Join-Path $TROUBLESHOOTING_DIR $filename
+        if (Test-Path $target) {
+            Write-Host "  ⚠️  $filename already exists, skipping..." -ForegroundColor Yellow
+        } else {
+            try {
+                New-Item -ItemType SymbolicLink -Path $target -Target $_.FullName | Out-Null
+                Write-Host "  ✓ Linked troubleshooting: $filename" -ForegroundColor Green
+            } catch {
+                Write-Host "  ✗ Failed to create link for $filename : $_" -ForegroundColor Red
+            }
+        }
+    }
 } else {
     Write-Host "  ⚠️  Warning: $TROUBLESHOOTING_SOURCE directory not found" -ForegroundColor Yellow
+}
+
+# 스펙 폴더 심볼릭 링크 생성
+Write-Host ""
+Write-Host "Creating symbolic links for specs..." -ForegroundColor Yellow
+$SPECS_DIR = Join-Path $PROJECT_ROOT ".ai-specs"
+New-Item -ItemType Directory -Force -Path $SPECS_DIR | Out-Null
+$SPECS_SOURCE = Join-Path $AI_CONTEXT_PATH "specs"
+if (Test-Path $SPECS_SOURCE) {
+    Get-ChildItem -Path $SPECS_SOURCE -Filter "*.md" | ForEach-Object {
+        $filename = $_.Name
+        $target = Join-Path $SPECS_DIR $filename
+        if (Test-Path $target) {
+            Write-Host "  ⚠️  $filename already exists, skipping..." -ForegroundColor Yellow
+        } else {
+            try {
+                New-Item -ItemType SymbolicLink -Path $target -Target $_.FullName | Out-Null
+                Write-Host "  ✓ Linked spec: $filename" -ForegroundColor Green
+            } catch {
+                Write-Host "  ✗ Failed to create link for $filename : $_" -ForegroundColor Red
+            }
+        }
+    }
+} else {
+    Write-Host "  ⚠️  Warning: $SPECS_SOURCE directory not found" -ForegroundColor Yellow
 }
 
 # Claude Skills 폴더 심볼릭 링크 생성
@@ -138,6 +176,7 @@ Write-Host "생성된 링크:"
 Write-Host "  - CLAUDE.md: $PROJECT_ROOT\CLAUDE.md"
 Write-Host "  - Instructions: $INSTRUCTIONS_DIR"
 Write-Host "  - Troubleshooting: $TROUBLESHOOTING_DIR"
+Write-Host "  - Specs: $SPECS_DIR"
 Write-Host "  - Claude Skills: $CLAUDE_SKILLS_DIR"
 Write-Host ""
 Write-Host "Cursor 사용자: 설정에서 'Include CLAUDE.md in context'를 활성화하세요." -ForegroundColor Yellow

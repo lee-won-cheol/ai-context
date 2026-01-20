@@ -80,12 +80,13 @@ fi
 echo ""
 echo "Creating symbolic links for troubleshooting..."
 TROUBLESHOOTING_DIR="$PROJECT_ROOT/.ai-troubleshooting"
+mkdir -p "$TROUBLESHOOTING_DIR"
 if [ -d "$AI_CONTEXT_PATH/troubleshooting" ]; then
+    # 하위 폴더 링크
     for ts_dir in "$AI_CONTEXT_PATH/troubleshooting"/*; do
         if [ -d "$ts_dir" ]; then
             folder_name=$(basename "$ts_dir")
             target="$TROUBLESHOOTING_DIR/$folder_name"
-            mkdir -p "$TROUBLESHOOTING_DIR"
             if [ -e "$target" ]; then
                 echo "  ⚠️  $folder_name already exists, skipping..."
             else
@@ -94,8 +95,43 @@ if [ -d "$AI_CONTEXT_PATH/troubleshooting" ]; then
             fi
         fi
     done
+    # _INDEX.md, _TEMPLATE.md 등 루트 파일 링크
+    for ts_file in "$AI_CONTEXT_PATH/troubleshooting"/*.md; do
+        if [ -f "$ts_file" ]; then
+            filename=$(basename "$ts_file")
+            target="$TROUBLESHOOTING_DIR/$filename"
+            if [ -e "$target" ]; then
+                echo "  ⚠️  $filename already exists, skipping..."
+            else
+                ln -sf "$ts_file" "$target"
+                echo "  ✓ Linked troubleshooting: $filename"
+            fi
+        fi
+    done
 else
     echo "  ⚠️  Warning: $AI_CONTEXT_PATH/troubleshooting directory not found"
+fi
+
+# 스펙 폴더 심볼릭 링크 생성
+echo ""
+echo "Creating symbolic links for specs..."
+SPECS_DIR="$PROJECT_ROOT/.ai-specs"
+mkdir -p "$SPECS_DIR"
+if [ -d "$AI_CONTEXT_PATH/specs" ]; then
+    for spec_file in "$AI_CONTEXT_PATH/specs"/*.md; do
+        if [ -f "$spec_file" ]; then
+            filename=$(basename "$spec_file")
+            target="$SPECS_DIR/$filename"
+            if [ -e "$target" ]; then
+                echo "  ⚠️  $filename already exists, skipping..."
+            else
+                ln -sf "$spec_file" "$target"
+                echo "  ✓ Linked spec: $filename"
+            fi
+        fi
+    done
+else
+    echo "  ⚠️  Warning: $AI_CONTEXT_PATH/specs directory not found"
 fi
 
 # Claude Skills 폴더 심볼릭 링크 생성
@@ -129,6 +165,7 @@ echo "생성된 링크:"
 echo "  - CLAUDE.md: $PROJECT_ROOT/CLAUDE.md"
 echo "  - Instructions: $INSTRUCTIONS_DIR/"
 echo "  - Troubleshooting: $TROUBLESHOOTING_DIR/"
+echo "  - Specs: $SPECS_DIR/"
 echo "  - Claude Skills: $CLAUDE_SKILLS_DIR/"
 echo ""
 echo "Cursor 사용자: 설정에서 'Include CLAUDE.md in context'를 활성화하세요."

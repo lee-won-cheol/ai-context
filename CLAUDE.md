@@ -190,12 +190,26 @@ npm install <package-name>
 
 | 카테고리 | 경로 | 설명 |
 |----------|------|------|
+| **태그 인덱스** | `.ai-troubleshooting/_INDEX.md` | 태그로 이슈 빠르게 검색 |
 | **SFCC** | `.ai-troubleshooting/sfcc/` | Content Asset, 캐시, 멀티사이트 |
 | **React** | `.ai-troubleshooting/react/` | 렌더링, 상태관리 이슈 |
 | **Next.js** | `.ai-troubleshooting/nextjs/` | 라우팅, SSR/SSG 이슈 |
 | **DevOps** | `.ai-troubleshooting/devops/` | 배포, CI/CD, 인프라 이슈 |
 
-**에러 발생 시 해당 폴더의 문서를 먼저 검색하세요.**
+**에러 발생 시 `.ai-troubleshooting/_INDEX.md`의 태그로 관련 문서를 먼저 검색하세요.**
+
+---
+
+## 스펙 문서 (Specs)
+
+새 기능 개발 시 스펙 문서를 먼저 작성하면 AI가 더 정확하게 구현합니다:
+
+| 항목 | 경로 | 설명 |
+|------|------|------|
+| **템플릿** | `.ai-specs/_TEMPLATE.md` | 스펙 작성 템플릿 |
+| **예시** | `.ai-specs/example-login-feature.md` | 로그인 기능 스펙 예시 |
+
+**기능 개발 전 스펙 문서를 작성하고, AI에게 "`.ai-specs/기능명.md` 보고 구현해줘"라고 요청하세요.**
 
 ---
 
